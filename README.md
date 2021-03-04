@@ -1,37 +1,42 @@
-# Luke's build of dwm
+# My build of dwm
 
-## FAQ
+> Includes all the patches that luke has.
 
-> What are the bindings?
+## Used packages
 
-This is suckless, mmmbud, the source code is the documentation! Check out [config.h](config.h).
+- `alsa-utils` for audio control
+- `blight` for brightness control
+- `playerctl` for Media control
+- `firefox` $BROWSER call changed with firefox
+- `ranger` as the file manager
+- mononoki nerd font is the default font i use
 
-Okay, okay, actually I keep a readme in `larbs.mom` for my whole system, including the binds here.
-Press `super+F1` to view it in dwm (zathura is required for that binding).
-I haven't kept `man dwm`/`dwm.1` updated though. PRs welcome on that, lol.
+## Visual Changes
+- Changed bar color to orange #ff4500
+- decreased border px
+- renamed tags with keywords
 
-## Patches and features
+## Removed Stuff
+> I have deleted the keys for the programs that I don't use
+- neomutt
+- pulseaudio
+- sysact
 
-- Clickable statusbar with my build of [dwmblocks](https://github.com/lukesmithxyz/dwmblocks).
-- Reads xresources colors/variables (i.e. works with `pywal`, etc.).
-- scratchpad: Accessible with mod+shift+enter.
-- New layouts: bstack, fibonacci, deck, centered master and more. All bound to keys `super+(shift+)t/y/u/i`.
-- True fullscreen (`super+f`) and prevents focus shifting.
-- Windows can be made sticky (`super+s`).
-- stacker: Move windows up the stack manually (`super-K/J`).
-- shiftview: Cycle through tags (`super+g/;`).
-- vanitygaps: Gaps allowed across all layouts.
-- swallow patch: if a program run from a terminal would make it inoperable, it temporarily takes its place to save space.
+## Changed Keybindings
+
+> Keybindings have slightly changed
+- mod+r for ranger
+- XF86 Audio for controlling media volume or navigating media
+- XF86 Brighhtness for controlling brightness
 
 ## Installation for newbs
 
 ```
-git clone https://github.com/LukeSmithxyz/dwm
+git clone https://github.com/cemkagank/dwm
 cd dwm
 sudo make install
 ```
 
-Users of Arch-based distros can also install it from the AUR as [dwm-luke-git](https://aur.archlinux.org/packages/dwm-luke-git).
 
 ## Please install `libxft-bgra`!
 
