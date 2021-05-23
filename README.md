@@ -1,4 +1,4 @@
-## dwm
+# Simple DWM ![DWM logo](/dwm.png)
 A minimalist dwm version of my own
-![GitHub Logo](/dwm.png)
-Format: ![Alt Text](url)
+
+
