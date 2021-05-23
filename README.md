@@ -17,7 +17,7 @@ A minimalist dwm version of my own. Provides sane defaults with essential patche
 * `alsa`
 * `xbacklight`
 
-# Insallation
+# Installation
 ```
 git clone https://github.com/cemkagank/dwm
 cd dwm
