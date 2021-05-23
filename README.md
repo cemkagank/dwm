@@ -1,4 +1,4 @@
-![DWM logo](/dwm.png) 
+![desktop example](/example.png) 
 # Simple DWM 
 A minimalist dwm version of my own. Provides sane defaults with essential patches.
 
