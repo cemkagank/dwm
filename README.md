@@ -13,7 +13,7 @@ A minimalist dwm version of my own. Provides sane defaults with essential patche
 
 ## Configured for
 * `playerctl`
-* `st`
+* `alacritty`
 * `alsa`
 * `xbacklight`
 
