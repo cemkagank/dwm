@@ -6,8 +6,9 @@
 #include <X11/XF86keysym.h> // Needed for Media control
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 10};
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -21,15 +22,18 @@ static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
+static const char col_white[]       = "#ffffff";
 static const char col_cyan[]        = "#11c21d";
+static const char col_purple[]      = "#850F8D";
+static const char col_prp2[]        = "#C738BD";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_white, col_purple,  col_prp2  },
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "6", "7", "阮", "" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -66,15 +70,18 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_purple, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
+static const char *google[]  = { "google-chrome-stable", NULL };
+static const char *neovide[]  = { "neovide", NULL };
 
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_w,      spawn,          SHCMD(TERMINAL " -e ranger") },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = google } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = neovide } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -90,13 +97,17 @@ static Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-    { MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
+	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_minus,  setgaps,        {.i = -5 } },
+	{ MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
+	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
+	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = GAP_TOGGLE} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -109,16 +120,17 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 
     /* Control Buttons and Media Keys*/
-    { 0, XF86XK_AudioMute,		    spawn,		SHCMD("amixer -q set Master toggle") },
-	{ 0, XF86XK_AudioRaiseVolume,	spawn,		SHCMD("amixer -q set Master 5%+") },
-	{ 0, XF86XK_AudioLowerVolume,	spawn,		SHCMD("amixer -q set Master 5%-") },
-    { 0, XF86XK_MonBrightnessUp,	spawn,		SHCMD("xbacklight -inc 10") },
-	{ 0, XF86XK_MonBrightnessDown,	spawn,		SHCMD("xbacklight -dec 10") },
-    { 0, XF86XK_AudioPrev,		    spawn,		SHCMD("playerctl prev") },
+	{ 0, XF86XK_AudioMute,		    spawn,		SHCMD("amixer -q set Master toggle") },
+	{ 0, XF86XK_AudioRaiseVolume,	    spawn,		SHCMD("amixer -q set Master 5%+") },
+	{ 0, XF86XK_AudioLowerVolume,       spawn,		SHCMD("amixer -q set Master 5%-") },
+	{ 0, XF86XK_MonBrightnessUp,        spawn,		SHCMD("xbacklight -inc 10") },
+	{ 0, XF86XK_MonBrightnessDown,	    spawn,		SHCMD("xbacklight -dec 10") },
+	{ 0, XF86XK_AudioPrev,		    spawn,		SHCMD("playerctl prev") },
 	{ 0, XF86XK_AudioNext,		    spawn,		SHCMD("playerctl next") },
 	{ 0, XF86XK_AudioPause,		    spawn,		SHCMD("playerctl play-pause") },
 	{ 0, XF86XK_AudioPlay,		    spawn,		SHCMD("playerctl play-pause") },
 	{ 0, XF86XK_AudioStop,		    spawn,		SHCMD("playerctl stop") },
+	{ 0, XK_Print,			    spawn,		SHCMD("sleep 0.2; scrot -s /home/cem/pix/screenshots/%d-%T-ss.png") },
 };
 
 /* button definitions */
