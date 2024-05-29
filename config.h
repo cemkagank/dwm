@@ -42,6 +42,8 @@ static const Rule rules[] = {
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
+	{ "Lxappearance",     NULL,       NULL,       0,            1,           -1 },
+	{ "Nitrogen",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",    NULL,       "Picture-in-Picture",     0 ,       1,           -1 },
 };
 
@@ -81,7 +83,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = google } },
-	{ MODKEY,                       XK_w,      spawn,          {.v = neovide } },
+	{ MODKEY,                       XK_n,      spawn,          {.v = neovide } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -131,6 +133,7 @@ static Key keys[] = {
 	{ 0, XF86XK_AudioPlay,		    spawn,		SHCMD("playerctl play-pause") },
 	{ 0, XF86XK_AudioStop,		    spawn,		SHCMD("playerctl stop") },
 	{ 0, XK_Print,			    spawn,		SHCMD("sleep 0.2; scrot -s /home/cem/pix/screenshots/%d-%T-ss.png") },
+	{ ShiftMask,XK_Print,		    spawn,		SHCMD("scrot /home/cem/pix/screenshots/%d-%T-fs.png") },
 };
 
 /* button definitions */
