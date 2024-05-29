@@ -4,7 +4,6 @@
 
 #define TERMINAL "alacritty" // Used for executing commands change according to your terminal
 #include <X11/XF86keysym.h> // Needed for Media control
-
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -23,13 +22,18 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_white[]       = "#ffffff";
+static const char col_mustard[]     = "#FFCA67";
+static const char col_terra[]       = "#C95433";
+static const char col_pbrown[]      = "#785149";
+static const char col_slate[]       = "#37515C";
+static const char col_dpg[]         = "#1E4F62";
 static const char col_cyan[]        = "#11c21d";
 static const char col_purple[]      = "#850F8D";
 static const char col_prp2[]        = "#C738BD";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_white, col_purple,  col_prp2  },
+	[SchemeNorm] = { col_gray3, col_gray1, col_pbrown },
+	[SchemeSel]  = { col_white, col_dpg,  col_terra  },
 };
 
 /* tagging */
@@ -44,6 +48,7 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Lxappearance",     NULL,       NULL,       0,            1,           -1 },
 	{ "Nitrogen",     NULL,       NULL,       0,            1,           -1 },
+	{ "Blueman-manager",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",    NULL,       "Picture-in-Picture",     0 ,       1,           -1 },
 };
 
