@@ -31,10 +31,18 @@ static const char col_dpg[]         = "#1E4F62";
 static const char col_cyan[]        = "#11c21d";
 static const char col_purple[]      = "#850F8D";
 static const char col_prp2[]        = "#C738BD";
+static const char col_black[]        = "#000000";
+
+// Grucbox color scheme
+static const char col_gyellow[]       = "#fabd2f";
+static const char col_ggreen[]      = "#b8bb26";
+static const char col_gblue[]       = "#83a598";
+
+
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
-	[SchemeSel]  = { col_white, col_dpg,  col_dpg  },
+	[SchemeSel]  = { col_black, col_gyellow,  col_gyellow  },
 };
 
 /* tagging */
@@ -60,7 +68,7 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[T]=",      tile },    /* first entry is default */
+	{ "[T]=",     tile },    /* first entry is default */
 	{ "[F]",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
